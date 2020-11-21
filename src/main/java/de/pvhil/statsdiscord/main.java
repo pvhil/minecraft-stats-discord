@@ -70,7 +70,6 @@ public final class main extends JavaPlugin implements EventListener {
         }
 
 
-        // Plugin startup logic
 
     }
     public void loadConfig(){
@@ -81,7 +80,7 @@ public final class main extends JavaPlugin implements EventListener {
 
     @Override
     public void onDisable() {
-        // Plugin shutdown logic
+        System.out.println("Deactivated Discord Stats");
     }
 
     @Override
