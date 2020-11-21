@@ -12,6 +12,8 @@ You need to create a Discord Bot! Go to the [Discord Developer Portal](https://d
 Copy the Bot Token from the Bot. You will need it later!  
 If you need more help creating a bot, search it on Youtube. There are plenty tutorials!
 
+Download the plugin [here](https://github.com/pvhil/minecraft-stats-discord/releases)
+
 Also you need the [Stats Plugin](https://www.spigotmc.org/resources/stats.3638/) fully configured and fully working in your server.
 
   
