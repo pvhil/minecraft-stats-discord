@@ -1,0 +1,7 @@
+name: StatsDiscord
+version: 1.0.0
+main: de.pvhil.statsdiscord.main
+api-version: 1.16
+authors: [ pvhil ]
+description: Extension for the "Stats-Plugin". Shows the stats in your Discord Server
+website: github.com/pvhil
