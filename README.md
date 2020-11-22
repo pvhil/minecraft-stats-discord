@@ -1,3 +1,5 @@
+[![spigot](https://img.shields.io/badge/Spigot-orange?style=for-the-badge&logo=spigot)](https://www.spigotmc.org/resources/discord-stats.85989/)
+
 # Minecraft Stats in your Discord Server!
 This plugin is an extension for the [Stats Plugin](https://www.spigotmc.org/resources/stats.3638/).  
 It will show you statistics for a given minecraft player.
