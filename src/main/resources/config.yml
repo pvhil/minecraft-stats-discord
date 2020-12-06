@@ -1,1 +1,3 @@
 BOTTOKEN: token
+embedcolor: 654321 # hex code without hash
+richpresence: .mcstats # Discord rich presence. Type 'null' if you dont want to add one

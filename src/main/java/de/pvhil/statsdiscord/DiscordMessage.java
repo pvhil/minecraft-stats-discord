@@ -7,6 +7,7 @@ import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
+import java.awt.*;
 import java.util.concurrent.CompletionException;
 
 public class DiscordMessage extends ListenerAdapter implements EventListener {
@@ -25,11 +26,14 @@ public class DiscordMessage extends ListenerAdapter implements EventListener {
                 server.setTitle("Stats for the Server");
                 server.addField("Online Players: ", String.valueOf(Bukkit.getOnlinePlayers().size()), true);
                 server.addField("IP: ", String.valueOf(main.IP), false);
-                server.setFooter("Use .mcstats name for player stats");
-                server.setColor(0x8B4513);
+                server.setFooter("Use \".mcstats name\" for player stats");
+                try {
+                    server.setColor(Color.decode("#"+main.embedColor));
+                }catch (Exception e){
+                    server.setColor(0x654321);
+                }
+
                 event.getChannel().sendMessage(server.build()).queue();
-
-
                 return;
             }
             name = args[1];
@@ -71,7 +75,11 @@ public class DiscordMessage extends ListenerAdapter implements EventListener {
                     }else{
                         stats.setAuthor("is online",null,"https://raw.githubusercontent.com/pvhil/DiscordWhitelister/master/src/main/resources/green.png");
                     }
-                    stats.setColor(0x8B4513);
+                try {
+                    stats.setColor(Color.decode("#"+main.embedColor));
+                }catch (Exception e){
+                    stats.setColor(0x654321);
+                }
             event.getChannel().sendMessage(stats.build()).queue();
 
 

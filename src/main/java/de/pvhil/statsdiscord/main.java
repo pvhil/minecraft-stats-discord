@@ -3,11 +3,13 @@ package de.pvhil.statsdiscord;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
+import de.pvhil.statsdiscord.others.Metrics;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.entities.Activity;
 import net.dv8tion.jda.api.events.GenericEvent;
 import net.dv8tion.jda.api.hooks.EventListener;
+import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
 
@@ -25,6 +27,7 @@ public final class main extends JavaPlugin implements EventListener {
     public static String urlf;
     public static String name;
     public static String pw;
+    public static String embedColor;
     public static Connection conn;
     public static JDA jda;
     public static InetAddress IP;
@@ -37,6 +40,7 @@ public final class main extends JavaPlugin implements EventListener {
             System.out.println("!!![DiscordStats] Please enter a Discord bot ID in the config!!");
             return;
         }
+        embedColor = getConfig().getString("embedcolor");;
 
         ObjectMapper mapper = new ObjectMapper(new YAMLFactory());
         mapper.findAndRegisterModules();
@@ -52,7 +56,8 @@ public final class main extends JavaPlugin implements EventListener {
             System.out.println("DiscordStats successfully connected to Stats Plugin ");
         } catch (SQLException throwables) {
             throwables.printStackTrace();
-            System.out.println("Discord Stats could not connect to Stats. Maybe Stats isnt also working?");
+            System.out.println("!!! Discord Stats could not connect to Stats. Maybe Stats isnt also working? !!!");
+            Bukkit.getPluginManager().disablePlugin(this);
         }
 
         try {
@@ -61,14 +66,20 @@ public final class main extends JavaPlugin implements EventListener {
                     .build();
         } catch (LoginException e) {
             System.out.println("Discord Stats is not working because the BOT TOKEN is invalid!!!");
+            Bukkit.getPluginManager().disablePlugin(this);
         }
-        main.jda.getPresence().setActivity(Activity.watching("your stats | .mcstats"));
+
+        String richP = getConfig().getString("richpresence");
+        if(!richP.equalsIgnoreCase("null")) {
+            main.jda.getPresence().setActivity(Activity.playing(richP));
+        }
         try {
             IP = InetAddress.getLocalHost();
         } catch (UnknownHostException e) {
             e.printStackTrace();
         }
-
+        int pluginId = 9473; // <-- Replace with the id of your plugin!
+        Metrics metrics = new Metrics(this, pluginId);
 
 
     }
@@ -80,6 +91,7 @@ public final class main extends JavaPlugin implements EventListener {
 
     @Override
     public void onDisable() {
+        jda.shutdownNow();
         System.out.println("Deactivated Discord Stats");
     }
 
